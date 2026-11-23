@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Launch Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <p class="kicker">Token launch radar · model radar-2</p>
+  <h1>Which protocol's token would be worth the most?</h1>
+  <p class="lede">Every protocol DefiLlama tracks that records no token, ranked by what its launch would be
+  worth if its record stayed as it is. A protocol records no token; the record is not proof it has none.</p>
+  <p class="meta" id="snapshot-meta">Loading the snapshot…</p>
+</header>
+
+<section class="stats" id="stats" aria-label="Board totals"></section>
+
+<section class="panel" id="model-panel">
+  <h2>How the value is worked out</h2>
+  <p><strong>implied value = TVL × peer multiple × maturity.</strong> The peer multiple is the median
+  market-cap-to-TVL ratio of live-token protocols in the same category, fitted from this snapshot at
+  run time (a category with fewer than 3 live peers falls back to the global median). Maturity is
+  0.6 for a newborn protocol and rises to 1.0 after three years without a token. No protocol name is
+  ever special-cased.</p>
+  <p>Each row also shows an honest range, from the 25th to the 75th percentile of the same category's
+  ratios, so one number never pretends to be certain. Two terms were measured and left out of the value:
+  launch odds by age and seven-day growth both made the blind tests worse, so growth is shown as a
+  column and a stability marker only, and the odds appear as a launch-readiness column and in the farm
+  verdict, never in the value.</p>
+  <table class="valid" id="validation-table">
+    <caption>Blind tests of the model, computed from this snapshot at run time (target: market cap of live-token protocols)</caption>
+    <thead><tr><th>Test</th><th>Protocols</th><th>Median error</th><th>Within 2×</th><th>What it means</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<section class="panel board-panel">
+  <h2>The board</h2>
+  <div class="controls">
+    <label>Search <input id="q" type="search" placeholder="name, slug or category" autocomplete="off"></label>
+    <label>Category <select id="cat"><option value="">All categories</option></select></label>
+    <label class="check"><input id="watch-only" type="checkbox"> Watchlist only</label>
+    <label>Sort <select id="sort">
+      <option value="rank">Rank</option>
+      <option value="implied_value_usd">Implied value</option>
+      <option value="tvl_usd">TVL</option>
+      <option value="change_7d">7-day change</option>
+      <option value="age_days">Age</option>
+      <option value="peer_multiple">Peer multiple</option>
+      <option value="launch_readiness">Launch readiness</option>
+      <option value="ev_per_hour_usd">EV per hour</option>
+    </select></label>
+    <button id="reset" type="button">Reset</button>
+  </div>
+  <p class="count" id="row-count"></p>
+  <div class="table-wrap">
+  <table class="board" id="board-table">
+    <thead><tr>
+      <th data-sort="rank">#</th><th data-sort="name">Protocol</th><th data-sort="category">Category</th>
+      <th data-sort="tvl_usd">TVL</th><th data-sort="change_7d">7d</th><th data-sort="age_days">Age</th>
+      <th data-sort="peer_multiple">Peer ×</th><th data-sort="implied_value_usd">Implied value</th>
+      <th>Honest range</th><th data-sort="launch_readiness">Readiness</th><th data-sort="ev_per_hour_usd">EV / hour</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table>
+  </div>
+  <p class="hint">Click a row to open its detail view and farm plan.</p>
+</section>
+
+<section class="panel detail" id="detail" hidden>
+  <h2 id="detail-title">Protocol detail</h2>
+  <div class="facts" id="detail-facts"></div>
+  <h3>Farm plan</h3>
+  <ol class="steps" id="detail-steps"></ol>
+  <p class="ev-note" id="detail-ev"></p>
+</section>
+
+<section class="panel">
+  <h2>Live tokens, for comparison</h2>
+  <p>The 24 largest protocols whose token already trades, at the market's own value. They are not
+  ranked here and never enter the board above: a board that mixes them in would rank what already
+  exists, not what is still to come.</p>
+  <div class="table-wrap">
+  <table class="board live" id="live-table">
+    <thead><tr><th>#</th><th>Protocol</th><th>Category</th><th>TVL</th><th>Market cap</th><th>7d</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  </div>
+</section>
+
+<footer class="foot">
+  <p>Data: DefiLlama public protocols endpoint, fetched 2026-11-14. The snapshot is sealed: every run
+  reads the same bytes. Implied values are this entry's own claim, never make.fun's. A farm plan is a
+  starting point, not financial advice; check the protocol's own pages before you move funds.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
